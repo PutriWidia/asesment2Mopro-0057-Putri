@@ -14,6 +14,7 @@ datastorePreferences = "1.1.4"
 room = "2.6.1"
 navigationRuntimeAndroid = "2.9.0-beta01"
 devtoolssKsp = "2.0.0-1.0.24"
+roomCommonJvm = "2.7.1"
 #roomCommonJvm = "2.7.1"
 
 [libraries]
@@ -42,6 +43,7 @@ androidx-room-compiler = { group = "androidx.room", name = "room-compiler", vers
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "roomRuntime" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "roomRuntime" }
 androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
+androidx-room-common-jvm = { group = "androidx.room", name = "room-common-jvm", version.ref = "roomCommonJvm" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

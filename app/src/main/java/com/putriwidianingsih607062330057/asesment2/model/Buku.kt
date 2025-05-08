@@ -1,6 +1,5 @@
 package com.putriwidianingsih607062330057.asesment2.model
 
-import androidx.room.Delete
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 

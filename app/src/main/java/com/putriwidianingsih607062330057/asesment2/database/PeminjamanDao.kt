@@ -1,22 +1,29 @@
 package com.putriwidianingsih607062330057.asesment2.database
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import com.putriwidianingsih607062330057.asesment2.model.Buku
 import com.putriwidianingsih607062330057.asesment2.model.Peminjaman
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface PeminjamanDao {
+    @Query("SELECT * FROM peminjaman ORDER BY namaPeminjam ASC")
+    fun getAllPeminjaman(): Flow<List<Peminjaman>>
+
     @Insert
-    suspend fun insertPeminjaman(peminjaman: Peminjaman)
+    suspend fun insert(peminjaman: Peminjaman)
 
-    @Query("SELECT * FROM buku WHERE isDelete = 0")
-    fun getAllPeminjaman(): List<Peminjaman>
+    @Update
+    suspend fun update(peminjaman: Peminjaman)
 
-    @Query("UPDATE buku SET isDelete = 1 WHERE id = :peminjamanId")
-    suspend fun softDeletePeminjaman(peminjamanId: Int)
+    @Query("SELECT * FROM peminjaman WHERE id = :id")
+    suspend fun getPeminjamanById(id: Int): Peminjaman?
 
-    @Query("UPDATE buku SET isDelete = 0 WHERE id = :peminjamanId")
-    suspend fun restorePeminjaman(peminjamanId: Int)
+    @Query("DELETE FROM peminjaman WHERE id = :id")
+    suspend fun deletePeminjam(id: Int)
 }
