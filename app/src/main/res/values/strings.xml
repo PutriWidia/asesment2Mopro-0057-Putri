@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Peminjaman buku</string>
+    <string name="list_kosong">Belum ada data</string>
+    <string name="x_diklik">%1$s diklik</string>
+    <string name="tambahkan_peminjaman">Tambahkan Peminjaman</string>
+    <string name="belum_bisa">Belum bisa tambahkan peminjaman.</string>
+    <string name="nama_peminjam">Nama Peminjam</string>
+    <string name="judul">Judul Buku</string>
+    <string name="kembali">Kembali</string>
+    <string name="simpan">Simpan</string>
+    <string name="edit_data">Ubah Data</string>
+    <string name="invalid">Nama dan Judul Buku tidak boleh kosong.</string>
+    <string name="lainnya">Opsi lainnya</string>
+    <string name="hapus">Hapus Data</string>
 </resources>
