@@ -16,7 +16,7 @@ interface PeminjamanDao {
     @Update
     suspend fun update(peminjaman: Peminjaman)
 
-    @Query("SELECT * FROM peminjaman ORDER BY tanggalPinjam ASC")
+    @Query("SELECT * FROM peminjaman ORDER BY tanggalKembali ASC")
     fun getPeminjaman(): Flow<List<Peminjaman>>
 
     @Query("SELECT * FROM peminjaman WHERE id = :id")

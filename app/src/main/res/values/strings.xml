@@ -6,6 +6,7 @@
     <string name="belum_bisa">Belum bisa tambahkan peminjaman.</string>
     <string name="nama_peminjam">Nama Peminjam</string>
     <string name="judul">Judul Buku</string>
+    <string name="tanggal_kembali">Berapa Hari Peminjaman?</string>
     <string name="kembali">Kembali</string>
     <string name="simpan">Simpan</string>
     <string name="edit_data">Ubah Data</string>

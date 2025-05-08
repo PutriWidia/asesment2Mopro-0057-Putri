@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -55,6 +56,8 @@ fun DetailScreen(navController: NavHostController, id: Long? = null){
     var namaPeminjam by remember { mutableStateOf("") }
     var judul by remember { mutableStateOf("") }
     var tanggalPinjam by remember { mutableStateOf("") }
+    var tanggalKembali by remember { mutableStateOf("") }
+    var jumlahHari by remember { mutableStateOf("") }
 
 
     LaunchedEffect(Unit) {
@@ -62,6 +65,8 @@ fun DetailScreen(navController: NavHostController, id: Long? = null){
         val data = viewModel.getPeminjaman(id) ?: return@LaunchedEffect
         namaPeminjam = data.namaPeminjam
         judul = data.judul
+        tanggalKembali = data.tanggalKembali
+        jumlahHari = data.jumlahHari.toString()
     }
 
 
@@ -90,15 +95,15 @@ fun DetailScreen(navController: NavHostController, id: Long? = null){
                 ),
                 actions = {
                     IconButton(onClick = {
-                        if (namaPeminjam == "" || judul == "") {
+                        if (namaPeminjam == "" || judul == "" || jumlahHari == "") {
                             Toast.makeText(context, R.string.invalid, Toast.LENGTH_LONG).show()
                             return@IconButton
                         }
 
                         if (id == null) {
-                            viewModel.insert(namaPeminjam, judul)
+                            viewModel.insert(namaPeminjam, judul, tanggalKembali, jumlahHari)
                         } else {
-                            viewModel.update(id, namaPeminjam, judul)
+                            viewModel.update(id, namaPeminjam, judul, tanggalKembali, jumlahHari)
                         }
                         navController.popBackStack()}) {
                         Icon(
@@ -123,6 +128,10 @@ fun DetailScreen(navController: NavHostController, id: Long? = null){
             onTitleChange = {namaPeminjam = it},
             desc = judul,
             onDescChange = {judul = it},
+            date = tanggalKembali,
+            onDateChange = { tanggalKembali = it },
+            jumlahHari = jumlahHari,
+            onJumlahHariChange = { jumlahHari = it },
             modifier = Modifier.padding(padding)
         )
     }
@@ -159,7 +168,9 @@ fun DeleteAction(delete: () -> Unit) {
 fun FormCatatan(
     title: String,onTitleChange: (String) -> Unit,
     desc: String,onDescChange:(String)-> Unit,
-    modifier: androidx.compose.ui.Modifier
+    date: String, onDateChange: (String) -> Unit,
+    jumlahHari: String, onJumlahHariChange: (String) -> Unit,
+    modifier: Modifier
 ){
     Column (
         modifier = modifier.fillMaxSize().padding(16.dp),
@@ -184,7 +195,18 @@ fun FormCatatan(
             keyboardOptions = KeyboardOptions(
                 capitalization = KeyboardCapitalization.Sentences
             ),
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxWidth()
+        )
+        OutlinedTextField(
+            value = date,
+            onValueChange = { onDateChange(it) },
+            label = { Text(text = stringResource(R.string.tanggal_kembali)) },
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(
+                capitalization = KeyboardCapitalization.None,
+                imeAction = ImeAction.Done
+            ),
+            modifier = Modifier.fillMaxWidth()
         )
     }
 }

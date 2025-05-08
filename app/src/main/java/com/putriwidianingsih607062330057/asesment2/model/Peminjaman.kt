@@ -10,4 +10,6 @@ data class Peminjaman(
     val namaPeminjam: String,
     val judul: String,
     val tanggalPinjam: String,
+    val tanggalKembali: String,
+    val jumlahHari: Int
 )

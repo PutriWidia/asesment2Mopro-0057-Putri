@@ -91,7 +91,8 @@ fun ListItem(peminjaman: Peminjaman, onClick: () -> Unit){
             maxLines = 2,
             overflow = TextOverflow.Ellipsis
         )
-        Text(text = peminjaman.tanggalPinjam)
+        Text(text = "Tanggal Pinjam: ${peminjaman.tanggalPinjam}")
+        Text(text = "Batas Pengembalian: ${peminjaman.tanggalKembali}")
     }
 }
 
