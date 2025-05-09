@@ -12,7 +12,7 @@ import java.util.Locale
 
 class DetailViewModel(private val dao: PeminjamanDao): ViewModel() {
 
-    private val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
+    private val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.US)
 
     fun insert(namaPeminjam: String, judul: String, tanggalKembali: String, jumlahHari: String) {
         val tanggalPinjam = formatter.format(Date())
@@ -20,7 +20,7 @@ class DetailViewModel(private val dao: PeminjamanDao): ViewModel() {
 
         val peminjaman = Peminjaman(
             tanggalPinjam = formatter.format(Date()),
-                    tanggalKembali = calculateTanggalKembali(tanggalPinjam, jumlahHari.toInt()),
+            tanggalKembali = calculateTanggalKembali(tanggalPinjam, jumlahHari.toInt()),
             namaPeminjam = namaPeminjam,
             judul = judul,
             jumlahHari = jumlahHari.toInt()

@@ -57,6 +57,7 @@ fun MainScreen(navController: NavHostController){
                 )
             )
         },
+
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { navController.navigate(Screen.FormBaru.route) }
@@ -81,13 +82,13 @@ fun ListItem(peminjaman: Peminjaman, onClick: () -> Unit){
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text(
-            text = peminjaman.namaPeminjam,
+            text = "Nama: ${peminjaman.namaPeminjam}",
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             fontWeight = FontWeight.Bold
         )
         Text(
-            text = peminjaman.judul,
+            text = "Judul Buku: ${peminjaman.judul}",
             maxLines = 2,
             overflow = TextOverflow.Ellipsis
         )

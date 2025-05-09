@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -66,9 +65,7 @@ fun DetailScreen(navController: NavHostController, id: Long? = null){
         namaPeminjam = data.namaPeminjam
         judul = data.judul
         tanggalKembali = data.tanggalKembali
-        jumlahHari = data.jumlahHari.toString()
     }
-
 
     Scaffold (
         topBar = {
@@ -95,8 +92,16 @@ fun DetailScreen(navController: NavHostController, id: Long? = null){
                 ),
                 actions = {
                     IconButton(onClick = {
-                        if (namaPeminjam == "" || judul == "" || jumlahHari == "") {
+                        if (namaPeminjam.isEmpty() || judul.isEmpty()) {
                             Toast.makeText(context, R.string.invalid, Toast.LENGTH_LONG).show()
+                            return@IconButton
+                        }
+
+                        val jumlahHariTrimmed = jumlahHari.trim()
+                        val jumlahHariInt = jumlahHariTrimmed.toIntOrNull()
+
+                        if (jumlahHariTrimmed.isEmpty() || jumlahHariInt == null || jumlahHariInt <= 0) {
+                            Toast.makeText(context, "Jumlah hari peminjaman harus diisi dan lebih dari 0", Toast.LENGTH_LONG).show()
                             return@IconButton
                         }
 
@@ -128,8 +133,8 @@ fun DetailScreen(navController: NavHostController, id: Long? = null){
             onTitleChange = {namaPeminjam = it},
             desc = judul,
             onDescChange = {judul = it},
-            date = tanggalKembali,
-            onDateChange = { tanggalKembali = it },
+//            date = tanggalKembali,
+//            onDateChange = { tanggalKembali = it },
             jumlahHari = jumlahHari,
             onJumlahHariChange = { jumlahHari = it },
             modifier = Modifier.padding(padding)
@@ -168,8 +173,9 @@ fun DeleteAction(delete: () -> Unit) {
 fun FormCatatan(
     title: String,onTitleChange: (String) -> Unit,
     desc: String,onDescChange:(String)-> Unit,
-    date: String, onDateChange: (String) -> Unit,
+//    date: String, onDateChange: (String) -> Unit,
     jumlahHari: String, onJumlahHariChange: (String) -> Unit,
+
     modifier: Modifier
 ){
     Column (
@@ -197,13 +203,23 @@ fun FormCatatan(
             ),
             modifier = Modifier.fillMaxWidth()
         )
+//        OutlinedTextField(
+//            value = date,
+//            onValueChange = { onDateChange(it) },
+//            label = { Text(text = stringResource(R.string.tanggal_kembali)) },
+//            singleLine = true,
+//            keyboardOptions = KeyboardOptions(
+//                capitalization = KeyboardCapitalization.None,
+//                imeAction = ImeAction.Done
+//            ),
+//            modifier = Modifier.fillMaxWidth()
+//        )
         OutlinedTextField(
-            value = date,
-            onValueChange = { onDateChange(it) },
-            label = { Text(text = stringResource(R.string.tanggal_kembali)) },
+            value = jumlahHari,
+            onValueChange = { onJumlahHariChange(it) },
+            label = { Text(text = "Jumlah Hari") },
             singleLine = true,
             keyboardOptions = KeyboardOptions(
-                capitalization = KeyboardCapitalization.None,
                 imeAction = ImeAction.Done
             ),
             modifier = Modifier.fillMaxWidth()
