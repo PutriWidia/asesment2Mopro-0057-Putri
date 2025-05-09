@@ -38,7 +38,7 @@ class DetailViewModel(private val dao: PeminjamanDao): ViewModel() {
     fun update(id: Long, namaPeminjam: String, judul: String, tanggalPinjam: String, jumlahHari: String) {
         val peminjaman = Peminjaman(
             id = id,
-            tanggalPinjam = formatter.format(Date()),
+            tanggalPinjam = tanggalPinjam,
             tanggalKembali = calculateTanggalKembali(tanggalPinjam, jumlahHari.toInt()),
             namaPeminjam = namaPeminjam,
             judul = judul,

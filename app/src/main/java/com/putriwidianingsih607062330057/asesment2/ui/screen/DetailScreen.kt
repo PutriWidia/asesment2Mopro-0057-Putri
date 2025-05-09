@@ -57,6 +57,7 @@ fun DetailScreen(navController: NavHostController, id: Long? = null){
     var tanggalPinjam by remember { mutableStateOf("") }
     var tanggalKembali by remember { mutableStateOf("") }
     var jumlahHari by remember { mutableStateOf("") }
+    var showDialog by remember { mutableStateOf(false) }
 
 
     LaunchedEffect(Unit) {
@@ -64,7 +65,9 @@ fun DetailScreen(navController: NavHostController, id: Long? = null){
         val data = viewModel.getPeminjaman(id) ?: return@LaunchedEffect
         namaPeminjam = data.namaPeminjam
         judul = data.judul
+        tanggalPinjam = data.tanggalPinjam
         tanggalKembali = data.tanggalKembali
+        jumlahHari = data.jumlahHari.toString()
     }
 
     Scaffold (
@@ -119,8 +122,7 @@ fun DetailScreen(navController: NavHostController, id: Long? = null){
                     }
                     if (id != null) {
                         DeleteAction {
-                            viewModel.delete(id)
-                            navController.popBackStack()
+                            showDialog = true
                         }
                     }
                 }
@@ -139,6 +141,15 @@ fun DetailScreen(navController: NavHostController, id: Long? = null){
             onJumlahHariChange = { jumlahHari = it },
             modifier = Modifier.padding(padding)
         )
+
+        if (id != null && showDialog) {
+            DisplayAlertDialog(
+                onDismissRequest = { showDialog = false }) {
+                showDialog = false
+                viewModel.delete(id)
+                navController.popBackStack()
+            }
+        }
     }
 }
 
@@ -226,6 +237,8 @@ fun FormCatatan(
         )
     }
 }
+
+
 
 @Preview(showBackground = true)
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES, showBackground = true)

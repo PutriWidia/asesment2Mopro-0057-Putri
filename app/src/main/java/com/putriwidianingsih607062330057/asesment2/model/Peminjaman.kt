@@ -11,5 +11,6 @@ data class Peminjaman(
     val judul: String,
     val tanggalPinjam: String,
     val tanggalKembali: String,
-    val jumlahHari: Int
+    val jumlahHari: Int,
+    val isDeleted: Boolean = false
 )
